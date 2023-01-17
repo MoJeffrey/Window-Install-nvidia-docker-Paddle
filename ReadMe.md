@@ -2,7 +2,7 @@
    ![AppVeyor](https://img.shields.io/static/v1?label=MoJeffrey&message=Windows+WLS2+Nvidia-docker+Paddlepaddle&color=<red>)
    
 ## 1. 安装最新的显卡驱动 
-    :blush:查看自己电脑显卡型号[nvidia](https://developer.nvidia.com/cuda/wsl)上去下载
+:blush:查看自己电脑显卡型号[nvidia](https://developer.nvidia.com/cuda/wsl)上去下载
 ***
 ![Image text](./img/GetCudaDriver.png)
 ***
