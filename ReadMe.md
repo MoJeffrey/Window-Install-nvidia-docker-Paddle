@@ -67,8 +67,28 @@ nvidia-smi
 进入选择Linux -> x86_64 -> WSL-Ubuntu -> 2.0 -> runfile(local)
 
 ```shell
+# apt-get
 # 可选操作，如果国内网速太慢请更换国内代理
+# 备份源文件
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+# 编辑源列表文件
+sudo vim /etc/apt/sources.list
 
+# 删除里面全部内容
+# 添加以下内容
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multivers
+deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+
+# 更新一下apt-get 源
+sudo apt-get update
 ```
 
 
@@ -77,12 +97,10 @@ nvidia-smi
 apt install -y build-essential
 # 提示软链接错误无需理会
 # 下载和安装
-wget https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-wsl-ubuntu.pin
-sudo mv cuda-wsl-ubuntu.pin /etc/apt/preferences.d/cuda-repository-pin-600
-sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/3bf863cc.pub
-sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/ /"
-sudo apt-get update
-sudo apt-get -y install cuda
+wget https://developer.download.nvidia.com/compute/cuda/11.7.0/local_installers/cuda_11.7.0_515.43.04_linux.run
+sudo sh cuda_11.7.0_515.43.04_linux.run
+
+#accept 全选安装即可
 ```
 
 ```shell
@@ -111,16 +129,19 @@ make
 
 # 输出Pass 则成功了
 ```
+***
+![Image text](./img/CUDA_Test.png)
+***
 
 ## 4. nvidia-docker安裝
 ```shell
+# 更新apt 源
 curl https://get.docker.com | sh 
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
    && curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \
    && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
 sudo apt update
 sudo apt-get install nvidia-docker2
-sudo systemctl restart docker
 service docker start
 ```
 
@@ -143,13 +164,19 @@ exit
 拉取PaddleDetection 镜像我选择CUDA11.7的
 
 ```shell
+
+# 拉取PaddlePaddle项目测试
 cd /home
 git clone https://github.com/PaddlePaddle/PaddleDetection.git
+
+# 进入paddlepaddle 镜像docker
 docker run --gpus all --shm-size=1g --ulimit \
 memlock=-1 -it --name Test -v /home/PaddleDetection:/home/PaddleDetection
 --rm nvcr.io/nvidia/paddlepaddle:22.10-py3
 cd /home/PaddleDetection
-pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple some-package
+
+# 安装pip 依赖 这里使用了代理
+pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 # 在GPU上预测一张图片
 export CUDA_VISIBLE_DEVICES=0
 python tools/infer.py -c configs/ppyolo/ppyolo_r50vd_dcn_1x_coco.yml -o use_gpu=true weights=https://paddledet.bj.bcebos.com/models/ppyolo_r50vd_dcn_1x_coco.pdparams --infer_img=demo/000000014439.jpg
