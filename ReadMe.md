@@ -12,14 +12,16 @@
     Game Ready Drivers: you are a gamer who prioritizes day of launch support for the latest games, patches, and DLCs.
     Studio Drivers: you are a content creator who prioritizes stability and quality for creative workflows including video editing, animation, photography, graphic design, and livestreaming.
 ***
+
+
 ## 2. 安装WSL2
-参考内容 https://learn.microsoft.com/zh-cn/windows/wsl/install-manual
+参考内容: **[舊版WSL 的手動安裝步驟](https://learn.microsoft.com/zh-cn/windows/wsl/install-manual)**
 
-选择子系统
+下載: **[Linux 內核更新包](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi)**
 
-推介Ubuntu 20.04 LTS https://www.microsoft.com/store/apps/9n6svws3rx71
+选择子系统, 推介: **[Ubuntu 20.04 LTS](https://www.microsoft.com/store/apps/9n6svws3rx71)**
 
-下載Linux 內核更新包 https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+
 
 下载后双击点击安装
 ```shell
@@ -35,15 +37,6 @@ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /nores
 # 设置 wsl 默认版本
 wsl --set-default-version 2
 ```
-
-参考内容 https://learn.microsoft.com/zh-cn/windows/wsl/install-manual
-
-选择子系统
-
-推介Ubuntu 20.04 LTS https://www.microsoft.com/store/apps/9n6svws3rx71
-
-双击点击安装
-
 
 ```shell
 # 子系统打包 移动到自己的文件夹
@@ -63,10 +56,11 @@ bash
 # 查看是否有显卡驱动
 nvidia-smi
 ```
-
+***
+![Image text](./img/GPU_Info.png)
+***
 ## 3. 安裝cuda
-根据nvidia-smi 选择CUDA版本
-https://developer.nvidia.com/cuda-toolkit-archive
+根据nvidia-smi, 选择 **[CUDA版本](https://developer.nvidia.com/cuda-toolkit-archive)**
 
 这里选择11.7.0
 
