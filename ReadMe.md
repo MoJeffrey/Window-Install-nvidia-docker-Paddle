@@ -1,13 +1,18 @@
 # Windows 安装Nvidia-Docker GPU 驱动Paddlepaddle
    ![AppVeyor](https://img.shields.io/static/v1?label=MoJeffrey&message=Windows+WLS2+Nvidia-docker+Paddlepaddle&color=<red>)
    
-### 1. 安装最新的显卡驱动 
-:blush:
-查看自己电脑显卡型号 <br>
-[nvidia](https://developer.nvidia.com/cuda/wsl)上去下载
+## 1. 安装最新的显卡驱动 
+    :blush:查看自己电脑显卡型号[nvidia](https://developer.nvidia.com/cuda/wsl)上去下载
+***
 ![Image text](./img/GetCudaDriver.png)
+***
 ![Image text](./img/SearchNVIDIADriver.png)
-### 2. 安装WSL2
+***
+    Download Type 选择SD
+    Game Ready Drivers: you are a gamer who prioritizes day of launch support for the latest games, patches, and DLCs.
+    Studio Drivers: you are a content creator who prioritizes stability and quality for creative workflows including video editing, animation, photography, graphic design, and livestreaming.
+***
+## 2. 安装WSL2
 参考内容 https://learn.microsoft.com/zh-cn/windows/wsl/install-manual
 
 选择子系统
@@ -59,7 +64,7 @@ bash
 nvidia-smi
 ```
 
-### 3. 安裝cuda
+## 3. 安裝cuda
 根据nvidia-smi 选择CUDA版本
 https://developer.nvidia.com/cuda-toolkit-archive
 
@@ -113,7 +118,7 @@ make
 # 输出Pass 则成功了
 ```
 
-### 4. nvidia-docker安裝
+## 4. nvidia-docker安裝
 ```shell
 curl https://get.docker.com | sh 
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
@@ -139,7 +144,7 @@ exit
 ```
 
 
-### 5. PaddleDetection
+## 5. PaddleDetection
 可以在 https://www.paddlepaddle.org.cn/install/quick?docurl=/documentation/docs/zh/install/install_NGC_PaddlePaddle_ch.html
 拉取PaddleDetection 镜像我选择CUDA11.7的
 
